@@ -1,4 +1,4 @@
-package io.github.violaceusflame.validator.dialog;
+package io.github.violaceusflame.validator;
 
 public abstract class AbstractInputValidator implements Validator {
     private static final String ALLOWED_ONLY_ONE_CHARACTER = "Ввести можно только один символ!";

@@ -1,4 +1,4 @@
-package io.github.violaceusflame.validator.dialog;
+package io.github.violaceusflame.validator;
 
 public class LauncherInputValidator extends AbstractInputValidator {
     public static final String ALLOWED_ONLY_DIGIT = "Ввести можно только цифру, соответствующую пункту меню!";

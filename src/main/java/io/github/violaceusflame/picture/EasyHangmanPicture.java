@@ -1,4 +1,4 @@
-package io.github.violaceusflame.repository.picture;
+package io.github.violaceusflame.picture;
 
 public class EasyHangmanPicture extends HangmanPicture {
     public EasyHangmanPicture() {
