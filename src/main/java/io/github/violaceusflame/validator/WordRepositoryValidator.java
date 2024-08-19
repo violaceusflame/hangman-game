@@ -1,4 +1,4 @@
-package io.github.violaceusflame.validator.repository;
+package io.github.violaceusflame.validator;
 
 import java.util.List;
 

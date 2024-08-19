@@ -1,6 +1,6 @@
 package io.github.violaceusflame.dialog;
 
-import io.github.violaceusflame.validator.dialog.Validator;
+import io.github.violaceusflame.validator.Validator;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package io.github.violaceusflame.repository.picture;
+package io.github.violaceusflame.picture;
 
 import java.util.ArrayList;
 import java.util.List;

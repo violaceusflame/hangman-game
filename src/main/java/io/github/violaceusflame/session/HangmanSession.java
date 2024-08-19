@@ -1,7 +1,7 @@
 package io.github.violaceusflame.session;
 
-import io.github.violaceusflame.repository.picture.EasyHangmanPicture;
-import io.github.violaceusflame.repository.picture.HangmanPicture;
+import io.github.violaceusflame.picture.EasyHangmanPicture;
+import io.github.violaceusflame.picture.HangmanPicture;
 import io.github.violaceusflame.dialog.Dialog;
 import io.github.violaceusflame.dialog.HangmanSessionDialog;
 

@@ -1,4 +1,4 @@
-package io.github.violaceusflame.validator.dialog;
+package io.github.violaceusflame.validator;
 
 public class HangmanSessionInputValidator extends AbstractInputValidator {
     private static final String ALLOWED_ONLY_LETTERS = "Вводить можно только буквы!";

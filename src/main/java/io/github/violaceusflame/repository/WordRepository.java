@@ -1,7 +1,7 @@
 package io.github.violaceusflame.repository;
 
 import io.github.violaceusflame.session.HiddenWord;
-import io.github.violaceusflame.validator.repository.WordRepositoryValidator;
+import io.github.violaceusflame.validator.WordRepositoryValidator;
 
 import java.io.*;
 import java.util.List;
