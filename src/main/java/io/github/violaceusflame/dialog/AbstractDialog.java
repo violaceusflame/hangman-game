@@ -4,7 +4,7 @@ import io.github.violaceusflame.validator.dialog.Validator;
 
 import java.util.Scanner;
 
-public class AbstractDialog implements Dialog {
+public abstract class AbstractDialog implements Dialog {
     protected final Validator inputValidator;
 
     public AbstractDialog(Validator inputValidator) {
