@@ -1,5 +1,5 @@
 package io.github.violaceusflame.validator;
 
-public interface Validator {
-    void validate(String input);
+public interface Validator<T> {
+    void validate(T input);
 }

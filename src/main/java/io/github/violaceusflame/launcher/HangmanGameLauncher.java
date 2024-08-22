@@ -1,15 +1,14 @@
 package io.github.violaceusflame.launcher;
 
-import io.github.violaceusflame.session.HangmanSession;
+import io.github.violaceusflame.dialog.HangmanSessionDialog;
+import io.github.violaceusflame.display.Display;
 import io.github.violaceusflame.repository.WordRepository;
+import io.github.violaceusflame.session.HangmanSession;
 import io.github.violaceusflame.dialog.Dialog;
-import io.github.violaceusflame.dialog.LauncherDialog;
 import io.github.violaceusflame.session.HangmanSession.Difficult;
 import io.github.violaceusflame.session.HiddenWord;
 
 import java.util.Optional;
-
-import static io.github.violaceusflame.repository.WordRepository.FILE_READ_ERROR;
 
 public class HangmanGameLauncher {
     private static final String WELCOME_MESSAGE = "Добро пожаловать в Виселицу!";
@@ -18,30 +17,43 @@ public class HangmanGameLauncher {
     private static final String EASY_DIFFICULT_COMMAND = "1";
     private static final String CLASSIC_DIFFICULT_COMMAND = "2";
     private static final String EXIT_MESSAGE = "Выходим из игры...";
-    private static final String INVALID_COMMAND_MESSAGE = "Такого пункта меню нет! Повторите попытку";
-    private static final Dialog dialog = new LauncherDialog();
+    private static final String INVALID_COMMAND_MESSAGE = "Неизвестная команда";
+    private static final String HIDDEN_WORD_GET_ERROR = "Ошибка при получении случайного тайного слова";
 
+    private final WordRepository wordRepository;
+    private final Dialog dialog;
+    private final Display display;
     private boolean running;
 
-    public void run() {
+    public HangmanGameLauncher(WordRepository wordRepository, Dialog dialog, Display display) {
+        this.wordRepository = wordRepository;
+        this.dialog = dialog;
+        this.display = display;
+    }
+
+    public void start() {
         running = true;
-        dialog.display(WELCOME_MESSAGE);
+        display.display(WELCOME_MESSAGE);
 
         while (running) {
             displayStartMessage();
+            String playerInput = getPlayerInput();
+            chooseAction(playerInput);
+        }
+    }
 
-            String playerInput;
+    private String getPlayerInput() {
+        while (true) {
             try {
-                playerInput = dialog.getInput();
-                chooseAction(playerInput);
+                return dialog.getInput();
             } catch (IllegalArgumentException e) {
-                dialog.display(e.getMessage());
+                display.display(e.getMessage());
             }
         }
     }
 
     private void displayStartMessage() {
-        dialog.display(String.format("""
+        display.display(String.format("""
                         Выберите пункт меню:
                         [%s] Новая игра
                         [%s] Выход""",
@@ -57,33 +69,36 @@ public class HangmanGameLauncher {
                 exit();
                 break;
             default:
-                dialog.display(INVALID_COMMAND_MESSAGE);
+                display.display(INVALID_COMMAND_MESSAGE);
                 break;
         }
     }
 
     private void startNewGame() {
-        HiddenWord word;
-        try {
-            word = WordRepository.get();
-        } catch (RuntimeException e) {
-            handleWordRepositoryException(e);
+        Optional<HiddenWord> wordOptional = getHiddenWord();
+        if (wordOptional.isEmpty()) {
             return;
         }
 
+        HiddenWord word = wordOptional.get();
         Difficult difficult = getDifficult();
         HangmanSession hangmanSession = createHangmanSession(word, difficult);
         hangmanSession.start();
     }
 
-    private void handleWordRepositoryException(RuntimeException e) {
-        Optional<String> exceptionMessage = getExceptionMessage(e);
-        if (exceptionMessage.isPresent()) {
-            dialog.display(exceptionMessage.get());
-        } else {
-            dialog.display(FILE_READ_ERROR);
+    private Optional<HiddenWord> getHiddenWord() {
+        try {
+            return Optional.of(wordRepository.get());
+        } catch (RuntimeException e) {
+            String exceptionMessage = getExceptionMessage(e).orElse(HIDDEN_WORD_GET_ERROR);
+            handleWordRepositoryException(exceptionMessage);
+            return Optional.empty();
         }
-        dialog.display("Продолжать игру невозможно.");
+    }
+
+    private void handleWordRepositoryException(String exceptionMessage) {
+        display.display(exceptionMessage);
+        display.display("Продолжать игру невозможно.");
         exit();
     }
 
@@ -104,31 +119,25 @@ public class HangmanGameLauncher {
         while (true) {
             displayDifficultLevels();
 
-            String difficult;
-            try {
-                difficult = dialog.getInput();
-            } catch (IllegalArgumentException e) {
-                dialog.display(e.getMessage());
-                continue;
-            }
-
+            String difficult = getPlayerInput();
             switch (difficult) {
                 case EASY_DIFFICULT_COMMAND:
                     return Difficult.EASY;
                 case CLASSIC_DIFFICULT_COMMAND:
                     return Difficult.CLASSIC;
                 default:
-                    dialog.display(INVALID_COMMAND_MESSAGE);
+                    display.display(INVALID_COMMAND_MESSAGE);
             }
         }
     }
 
     private HangmanSession createHangmanSession(HiddenWord word, Difficult difficult) {
-        return new HangmanSession(difficult, word);
+        Dialog sessionDialog = new HangmanSessionDialog();
+        return new HangmanSession(difficult, word, sessionDialog, display);
     }
 
     private void displayDifficultLevels() {
-        dialog.display(String.format("""
+        display.display(String.format("""
                         Выберите уровень сложности:
                         [%s] Лёгкий (попыток: %d)
                         [%s] Классический (попыток: %d)""",
@@ -137,7 +146,7 @@ public class HangmanGameLauncher {
     }
 
     private void exit() {
-        dialog.display(EXIT_MESSAGE);
+        display.display(EXIT_MESSAGE);
         running = false;
     }
 }

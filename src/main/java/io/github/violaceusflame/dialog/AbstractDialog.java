@@ -5,23 +5,22 @@ import io.github.violaceusflame.validator.Validator;
 import java.util.Scanner;
 
 public abstract class AbstractDialog implements Dialog {
-    protected final Validator inputValidator;
+    protected final Validator<String> inputValidator;
 
-    public AbstractDialog(Validator inputValidator) {
+    public AbstractDialog(Validator<String> inputValidator) {
         this.inputValidator = inputValidator;
     }
 
     @Override
     public String getInput() {
-        System.out.print(">>> ");
-        Scanner scanner = new Scanner(System.in);
-        String playerInput = scanner.nextLine().trim();
+        String playerInput = readInput();
         inputValidator.validate(playerInput);
         return playerInput;
     }
 
-    @Override
-    public void display(String info) {
-        System.out.println(info);
+    private String readInput() {
+        System.out.print(">>> ");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine().trim();
     }
 }

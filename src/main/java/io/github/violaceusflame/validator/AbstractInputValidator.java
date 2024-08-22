@@ -1,6 +1,6 @@
 package io.github.violaceusflame.validator;
 
-public abstract class AbstractInputValidator implements Validator {
+public abstract class AbstractInputValidator implements Validator<String> {
     private static final String ALLOWED_ONLY_ONE_CHARACTER = "Ввести можно только один символ!";
 
     @Override

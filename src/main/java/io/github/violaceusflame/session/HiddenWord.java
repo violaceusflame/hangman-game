@@ -1,9 +1,8 @@
 package io.github.violaceusflame.session;
 
-import java.util.NoSuchElementException;
+import io.github.violaceusflame.exception.NoSuchLetterException;
 
 public class HiddenWord {
-    private static final String NO_SUCH_LETTER_IN_WORD = "Ошибка! Буквы %s нет в загаданном слове!";
     private static final String PLACEHOLDER = "*";
 
     private final String text;
@@ -22,7 +21,7 @@ public class HiddenWord {
     public String revealLetter(String letter) {
         letter = letter.toUpperCase();
         if (!text.contains(letter)) {
-            throw new NoSuchElementException(String.format(NO_SUCH_LETTER_IN_WORD, letter.toUpperCase()));
+            throw new NoSuchLetterException(letter);
         }
 
         if (isGuessed() || isLetterAlreadyRevealed(letter)) {

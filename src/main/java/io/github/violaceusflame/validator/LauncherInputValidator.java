@@ -1,7 +1,7 @@
 package io.github.violaceusflame.validator;
 
 public class LauncherInputValidator extends AbstractInputValidator {
-    public static final String ALLOWED_ONLY_DIGIT = "Ввести можно только цифру, соответствующую пункту меню!";
+    private static final String ALLOWED_ONLY_DIGIT = "Ввести можно только цифру, соответствующую пункту меню!";
 
     @Override
     public void validate(String playerInput) {
