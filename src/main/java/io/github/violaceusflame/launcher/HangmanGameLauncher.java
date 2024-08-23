@@ -33,7 +33,7 @@ public class HangmanGameLauncher {
 
     public void start() {
         running = true;
-        display.display(WELCOME_MESSAGE);
+        display.show(WELCOME_MESSAGE);
 
         while (running) {
             displayStartMessage();
@@ -47,13 +47,13 @@ public class HangmanGameLauncher {
             try {
                 return dialog.getInput();
             } catch (IllegalArgumentException e) {
-                display.display(e.getMessage());
+                display.show(e.getMessage());
             }
         }
     }
 
     private void displayStartMessage() {
-        display.display(String.format("""
+        display.show(String.format("""
                         Выберите пункт меню:
                         [%s] Новая игра
                         [%s] Выход""",
@@ -69,7 +69,7 @@ public class HangmanGameLauncher {
                 exit();
                 break;
             default:
-                display.display(INVALID_COMMAND_MESSAGE);
+                display.show(INVALID_COMMAND_MESSAGE);
                 break;
         }
     }
@@ -97,8 +97,8 @@ public class HangmanGameLauncher {
     }
 
     private void handleWordRepositoryException(String exceptionMessage) {
-        display.display(exceptionMessage);
-        display.display("Продолжать игру невозможно.");
+        display.show(exceptionMessage);
+        display.show("Продолжать игру невозможно.");
         exit();
     }
 
@@ -126,7 +126,7 @@ public class HangmanGameLauncher {
                 case CLASSIC_DIFFICULT_COMMAND:
                     return Difficult.CLASSIC;
                 default:
-                    display.display(INVALID_COMMAND_MESSAGE);
+                    display.show(INVALID_COMMAND_MESSAGE);
             }
         }
     }
@@ -137,7 +137,7 @@ public class HangmanGameLauncher {
     }
 
     private void displayDifficultLevels() {
-        display.display(String.format("""
+        display.show(String.format("""
                         Выберите уровень сложности:
                         [%s] Лёгкий (попыток: %d)
                         [%s] Классический (попыток: %d)""",
@@ -146,7 +146,7 @@ public class HangmanGameLauncher {
     }
 
     private void exit() {
-        display.display(EXIT_MESSAGE);
+        display.show(EXIT_MESSAGE);
         running = false;
     }
 }
