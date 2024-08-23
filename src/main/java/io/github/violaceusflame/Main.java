@@ -10,10 +10,10 @@ import io.github.violaceusflame.repository.WordRepository;
 
 public class Main {
     public static void main(String[] args) {
-        WordRepository fileWordRepository = new FileWordRepository("words.txt");
+        WordRepository wordRepository = new FileWordRepository("words.txt");
         Dialog launcherDialog = new LauncherDialog();
         Display infoDisplay = new InfoDisplay();
-        HangmanGameLauncher hangmanGameLauncher = new HangmanGameLauncher(fileWordRepository, launcherDialog, infoDisplay);
+        HangmanGameLauncher hangmanGameLauncher = new HangmanGameLauncher(wordRepository, launcherDialog, infoDisplay);
         hangmanGameLauncher.start();
     }
 }
