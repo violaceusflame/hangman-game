@@ -24,6 +24,7 @@ public class HangmanSession {
     private static final String START_MESSAGE = "Игра началась!";
     private static final String ATTEMPTS_ARE_OVER = "Попыток больше нет! Игра закончилась! Колобок повесился!";
     private static final String WIN = "Ура, победа!";
+    private static final String NO_SUCH_LETTER_MESSAGE = "Ошибка! Буквы %s нет в загаданном слове";
 
     private final HiddenWord hiddenWord;
     private final Difficult difficult;
@@ -72,10 +73,28 @@ public class HangmanSession {
     private Optional<String> getWordMaskWithRevealedLetter(String letter) {
         try {
             return Optional.of(hiddenWord.revealLetter(letter));
-        } catch (NoSuchLetterException e) {
-            handleWrongLetter(letter, e.getMessage());
+        } catch (RuntimeException e) {
+            handleException(e);
             return Optional.empty();
         }
+    }
+
+    private void handleException(RuntimeException e) {
+        String message = convertExceptionToText(e);
+        display.show(message);
+
+        if (e instanceof NoSuchLetterException noSuchLetterException) {
+            String wrongLetter = noSuchLetterException.getWrongLetter();
+            handleWrongLetter(wrongLetter);
+        }
+    }
+
+    private String convertExceptionToText(RuntimeException e) {
+        if (e instanceof NoSuchLetterException noSuchLetterException) {
+            String wrongLetter = noSuchLetterException.getWrongLetter();
+            return String.format(NO_SUCH_LETTER_MESSAGE, wrongLetter);
+        }
+        throw new IllegalArgumentException("Unable convert exception to text: " + e);
     }
 
     private String getPlayerInput() {
@@ -88,10 +107,9 @@ public class HangmanSession {
         }
     }
 
-    private void handleWrongLetter(String letter, String exceptionMessage) {
+    private void handleWrongLetter(String letter) {
         letter = letter.toUpperCase();
         if (!wrongLetters.contains(letter)) {
-            display.show(exceptionMessage);
             wrongLetters.add(letter);
         } else {
             display.show("Вы уже вводили эту букву, её нет в загаданном слове!");
