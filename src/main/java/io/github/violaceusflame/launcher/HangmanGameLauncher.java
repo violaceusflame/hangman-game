@@ -1,6 +1,7 @@
 package io.github.violaceusflame.launcher;
 
-import io.github.violaceusflame.dialog.HangmanSessionDialog;
+import io.github.violaceusflame.dialog.EngLetterDialog;
+import io.github.violaceusflame.dialog.RusLetterDialog;
 import io.github.violaceusflame.display.Display;
 import io.github.violaceusflame.mapper.MessageMapper;
 import io.github.violaceusflame.repository.WordRepository;
@@ -48,18 +49,8 @@ public class HangmanGameLauncher {
 
         while (running) {
             displayStartMessage();
-            String playerInput = getPlayerInput();
+            String playerInput = dialog.getInput();
             chooseAction(playerInput);
-        }
-    }
-
-    private String getPlayerInput() {
-        while (true) {
-            try {
-                return dialog.getInput();
-            } catch (IllegalArgumentException e) {
-                display.show(e.getMessage());
-            }
         }
     }
 
@@ -115,25 +106,11 @@ public class HangmanGameLauncher {
         exit();
     }
 
-    // TODO: Удалить метод, если способов его применения так и не нашлось.
-//    private Optional<String> getExceptionMessage(RuntimeException e) {
-//        if (e.getMessage() == null) {
-//            return Optional.empty();
-//        }
-//
-//        String exceptionMessage = e.getMessage();
-//        if (e.getCause() != null) {
-//            String causeExceptionMessage = e.getCause().getMessage();
-//            exceptionMessage += ": " + causeExceptionMessage;
-//        }
-//        return Optional.of(exceptionMessage);
-//    }
-
     private Difficult getDifficult() {
         while (true) {
             displayDifficultLevels();
 
-            String difficult = getPlayerInput();
+            String difficult = dialog.getInput();
             switch (difficult) {
                 case EASY_DIFFICULT_COMMAND:
                     return Difficult.EASY;
@@ -146,7 +123,7 @@ public class HangmanGameLauncher {
     }
 
     private HangmanSession createHangmanSession(HiddenWord word, Difficult difficult) {
-        Dialog sessionDialog = new HangmanSessionDialog();
+        Dialog sessionDialog = new RusLetterDialog(display, "Ввод: ");
         return new HangmanSession(difficult, word, sessionDialog, display);
     }
 

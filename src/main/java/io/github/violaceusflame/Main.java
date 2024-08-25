@@ -12,11 +12,11 @@ import io.github.violaceusflame.repository.WordRepository;
 
 public class Main {
     public static void main(String[] args) {
-        WordRepository wordRepository = new FileWordRepository("words.txt");
-        Dialog launcherDialog = new LauncherDialog();
-        Display infoDisplay = new InfoDisplay();
+        WordRepository wordRepository = new FileWordRepository("words_ru.txt", Language.RUSSIAN);
+        Display display = new InfoDisplay();
+        Dialog dialog = new LauncherDialog(display, "Ввод: ");
         MessageMapper<RuntimeException> messageMapper = new FileWordRepositoryRusMessageMapper();
-        HangmanGameLauncher hangmanGameLauncher = new HangmanGameLauncher(wordRepository, launcherDialog, infoDisplay, messageMapper);
+        HangmanGameLauncher hangmanGameLauncher = new HangmanGameLauncher(wordRepository, dialog, display, messageMapper);
         hangmanGameLauncher.start();
     }
 }

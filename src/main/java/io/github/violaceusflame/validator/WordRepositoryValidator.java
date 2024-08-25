@@ -8,6 +8,12 @@ public class WordRepositoryValidator implements Validator<List<String>> {
     private static final String EMPTY_WORDS_LIST = "Список слов пуст или не содержит строк со словами";
     private static final String INVALID_WORD_IN_FILE = "Ошибка в файле со списком слов: строка '%s' не является словом, так как содержит символы, отличающиеся от букв кириллицы";
 
+    private final AbstractLetterValidator letterValidator;
+
+    public WordRepositoryValidator(AbstractLetterValidator letterValidator) {
+        this.letterValidator = letterValidator;
+    }
+
     @Override
     public void validate(List<String> words) {
         if (words.isEmpty()) {
@@ -21,21 +27,13 @@ public class WordRepositoryValidator implements Validator<List<String>> {
         }
     }
 
-    private static boolean isWord(String line) {
+    private boolean isWord(String line) {
         for (int i = 0; i < line.length(); i++) {
             char ch = line.charAt(i);
-            if (!isCyrillicLetter(ch)) {
+            if (!letterValidator.isLetterInLanguage(ch)) {
                 return false;
             }
         }
         return true;
-    }
-
-    private static boolean isCyrillicLetter(char ch) {
-        return Character.isLetter(ch) && isCyrillic(ch);
-    }
-
-    private static boolean isCyrillic(char letter) {
-        return Character.UnicodeBlock.of(letter).equals(Character.UnicodeBlock.CYRILLIC);
     }
 }

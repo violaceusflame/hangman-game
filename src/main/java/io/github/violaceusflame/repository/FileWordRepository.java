@@ -1,5 +1,6 @@
 package io.github.violaceusflame.repository;
 
+import io.github.violaceusflame.Language;
 import io.github.violaceusflame.exception.OpenWordsFileException;
 import io.github.violaceusflame.exception.ReadWordsFileException;
 import io.github.violaceusflame.session.HiddenWord;
@@ -9,13 +10,13 @@ import java.io.*;
 import java.util.List;
 
 public class FileWordRepository implements WordRepository {
-    private static final WordRepositoryValidator wordRepositoryValidator = new WordRepositoryValidator();
-
+    private final WordRepositoryValidator wordRepositoryValidator;
     private final String fileName;
     private List<String> words;
 
-    public FileWordRepository(String fileName) {
+    public FileWordRepository(String fileName, Language language) {
         this.fileName = "/" + fileName;
+        this.wordRepositoryValidator = new WordRepositoryValidator(language.getLetterValidator());
     }
 
     private void loadWords() {

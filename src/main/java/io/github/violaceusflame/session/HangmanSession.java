@@ -57,7 +57,7 @@ public class HangmanSession {
 
     public void start() {
         while (isSessionOn) {
-            String letter = getPlayerInput();
+            String letter = dialog.getInput();
 
             Optional<String> mask = getWordMaskWithRevealedLetter(letter);
             if (mask.isEmpty()) {
@@ -95,16 +95,6 @@ public class HangmanSession {
             return String.format(NO_SUCH_LETTER_MESSAGE, wrongLetter);
         }
         throw new IllegalArgumentException("Unable convert exception to text: " + e);
-    }
-
-    private String getPlayerInput() {
-        while (true) {
-            try {
-                return dialog.getInput();
-            } catch (IllegalArgumentException e) {
-                display.show(e.getMessage());
-            }
-        }
     }
 
     private void handleWrongLetter(String letter) {

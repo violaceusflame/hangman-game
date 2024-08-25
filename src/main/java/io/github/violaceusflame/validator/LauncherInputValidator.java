@@ -1,17 +1,24 @@
 package io.github.violaceusflame.validator;
 
-public class LauncherInputValidator extends AbstractInputValidator {
-    private static final String ALLOWED_ONLY_DIGIT = "Ввести можно только цифру, соответствующую пункту меню!";
+import io.github.violaceusflame.exception.ValidatorException;
 
+public class LauncherInputValidator implements Validator<String> {
     @Override
     public void validate(String playerInput) {
-        super.validate(playerInput);
+        if (playerInput.length() != 1) {
+            throw new ValidatorException(Result.ALLOWED_ONLY_ONE_CHARACTER);
+        }
         if (!isDigit(playerInput)) {
-            throw new IllegalArgumentException(ALLOWED_ONLY_DIGIT);
+            throw new ValidatorException(Result.ALLOWED_ONLY_DIGIT);
         }
     }
 
     private boolean isDigit(String playerInput) {
         return Character.isDigit(playerInput.charAt(0));
+    }
+
+    public enum Result {
+        ALLOWED_ONLY_ONE_CHARACTER,
+        ALLOWED_ONLY_DIGIT
     }
 }
