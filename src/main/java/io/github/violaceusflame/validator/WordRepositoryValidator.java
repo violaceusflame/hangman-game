@@ -16,7 +16,7 @@ public class WordRepositoryValidator implements Validator<List<String>> {
 
         for (String word : words) {
             if (!isWord(word)) {
-                throw new WordRepositoryValidatorException(String.format(INVALID_WORD_IN_FILE, word));
+                throw new WordRepositoryValidatorException(String.format(INVALID_WORD_IN_FILE, word), word);
             }
         }
     }

@@ -2,6 +2,7 @@ package io.github.violaceusflame.launcher;
 
 import io.github.violaceusflame.dialog.HangmanSessionDialog;
 import io.github.violaceusflame.display.Display;
+import io.github.violaceusflame.mapper.MessageMapper;
 import io.github.violaceusflame.repository.WordRepository;
 import io.github.violaceusflame.session.HangmanSession;
 import io.github.violaceusflame.dialog.Dialog;
@@ -18,17 +19,27 @@ public class HangmanGameLauncher {
     private static final String CLASSIC_DIFFICULT_COMMAND = "2";
     private static final String EXIT_MESSAGE = "Выходим из игры...";
     private static final String INVALID_COMMAND_MESSAGE = "Неизвестная команда";
-    private static final String HIDDEN_WORD_GET_ERROR = "Ошибка при получении случайного тайного слова";
 
     private final WordRepository wordRepository;
     private final Dialog dialog;
     private final Display display;
+    private final MessageMapper<RuntimeException> messageMapper;
     private boolean running;
 
-    public HangmanGameLauncher(WordRepository wordRepository, Dialog dialog, Display display) {
+    // TODO: Сделать обработку исключений у объектов, внедряемых через DI.
+    // TODO: WordRepository внедряется через DI (Dependency Injection).
+    //  Надо подумать над тем, как обрабатывать исключения такого объекта. Как вариант, можно включить метод
+    //  для обработки исключений в интерфейс и в случае возникновения вызывать его.
+    //  Нечто похожее есть в Spring: там можно аннотировать методы @ExceptionHandler(...).
+    //  Или можно написать отдельный объект-обработчик в дополнение к конкретной реализации WordRepository
+    //  и там уже производить маппинг в конкретное текстовое представление, которое будет отображаться на экране.
+    // TODO: А вообще нужно почитать про DI внимательнее.
+    // TODO: Можно написать маппер, аналогичный тому, который Алексей использовал при написании своего варианта диалога.
+    public HangmanGameLauncher(WordRepository wordRepository, Dialog dialog, Display display, MessageMapper<RuntimeException> messageMapper) {
         this.wordRepository = wordRepository;
         this.dialog = dialog;
         this.display = display;
+        this.messageMapper = messageMapper;
     }
 
     public void start() {
@@ -90,7 +101,9 @@ public class HangmanGameLauncher {
         try {
             return Optional.of(wordRepository.get());
         } catch (RuntimeException e) {
-            String exceptionMessage = getExceptionMessage(e).orElse(HIDDEN_WORD_GET_ERROR);
+//            String exceptionMessage = getExceptionMessage(e).orElse(HIDDEN_WORD_GET_ERROR);
+            // TODO: Проверить корректность перехвата исключений WordRepositoryValidator
+            String exceptionMessage = messageMapper.apply(e);
             handleWordRepositoryException(exceptionMessage);
             return Optional.empty();
         }
@@ -102,18 +115,19 @@ public class HangmanGameLauncher {
         exit();
     }
 
-    private Optional<String> getExceptionMessage(RuntimeException e) {
-        if (e.getMessage() == null) {
-            return Optional.empty();
-        }
-
-        String exceptionMessage = e.getMessage();
-        if (e.getCause() != null) {
-            String causeExceptionMessage = e.getCause().getMessage();
-            exceptionMessage += ": " + causeExceptionMessage;
-        }
-        return Optional.of(exceptionMessage);
-    }
+    // TODO: Удалить метод, если способов его применения так и не нашлось.
+//    private Optional<String> getExceptionMessage(RuntimeException e) {
+//        if (e.getMessage() == null) {
+//            return Optional.empty();
+//        }
+//
+//        String exceptionMessage = e.getMessage();
+//        if (e.getCause() != null) {
+//            String causeExceptionMessage = e.getCause().getMessage();
+//            exceptionMessage += ": " + causeExceptionMessage;
+//        }
+//        return Optional.of(exceptionMessage);
+//    }
 
     private Difficult getDifficult() {
         while (true) {
