@@ -13,10 +13,10 @@ public abstract class AbstractLetterValidator implements Validator<String> {
 
     @Override
     public void validate(String playerInput) {
-        char typedLetter = playerInput.charAt(0);
         if (playerInput.length() != 1) {
             throw new MoreCharactersInputException();
         }
+        char typedLetter = playerInput.charAt(0);
         if (!isLetter(typedLetter)) {
             throw new NotLetterException();
         }
