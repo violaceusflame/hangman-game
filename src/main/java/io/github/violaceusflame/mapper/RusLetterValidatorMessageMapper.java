@@ -19,6 +19,6 @@ public class RusLetterValidatorMessageMapper implements MessageMapper {
             return MORE_LETTERS_MESSAGE;
         }
 
-        throw new IllegalArgumentException("Illegal exception" + e);
+        throw new IllegalArgumentException("Illegal exception: " + e);
     }
 }
