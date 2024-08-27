@@ -1,6 +1,6 @@
 package io.github.violaceusflame.repository;
 
-import io.github.violaceusflame.Language;
+import io.github.violaceusflame.constant.Language;
 import io.github.violaceusflame.exception.OpenWordsFileException;
 import io.github.violaceusflame.exception.ReadWordsFileException;
 import io.github.violaceusflame.session.HiddenWord;

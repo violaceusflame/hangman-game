@@ -50,8 +50,8 @@ public class HangmanSession {
     }
 
     private void displayStartMessage() {
-        display.show(START_MESSAGE);
-        display.show(hiddenWord.getMask());
+        display.showInfo(START_MESSAGE);
+        display.showInfo(hiddenWord.getMask());
         displayHangmanPicture();
     }
 
@@ -63,7 +63,7 @@ public class HangmanSession {
             if (mask.isEmpty()) {
                 continue;
             }
-            display.show(mask.get());
+            display.showInfo(mask.get());
             if (hiddenWord.isGuessed()) {
                 endSession(Result.WIN);
             }
@@ -81,7 +81,7 @@ public class HangmanSession {
 
     private void handleException(RuntimeException e) {
         String message = convertExceptionToText(e);
-        display.show(message);
+        display.showError(message);
 
         if (e instanceof NoSuchLetterException noSuchLetterException) {
             String wrongLetter = noSuchLetterException.getWrongLetter();
@@ -102,7 +102,7 @@ public class HangmanSession {
         if (!wrongLetters.contains(letter)) {
             wrongLetters.add(letter);
         } else {
-            display.show("Вы уже вводили эту букву, её нет в загаданном слове!");
+            display.showError("Вы уже вводили эту букву, её нет в загаданном слове!");
             displayErrorMessage();
             return;
         }
@@ -123,16 +123,16 @@ public class HangmanSession {
     private void displayErrorMessage() {
         displayLeftAttempts();
         displayWrongLetters();
-        display.show(hiddenWord.getMask());
+        display.showInfo(hiddenWord.getMask());
     }
 
     private void displayHangmanPicture() {
         String picture = hangmanPicture.get(difficult.MAX_ATTEMPTS - leftAttempts);
-        display.show(picture);
+        display.showInfo(picture);
     }
 
     private void displayWrongLetters() {
-        display.show("Ошибки: " + getStringOfWrongLetters());
+        display.showInfo("Ошибки: " + getStringOfWrongLetters());
     }
 
     private String getStringOfWrongLetters() {
@@ -144,7 +144,7 @@ public class HangmanSession {
     }
 
     private void displayLeftAttempts() {
-        display.show("Осталось попыток: " + leftAttempts);
+        display.showInfo("Осталось попыток: " + leftAttempts);
     }
 
     private void endSession(Result result) {
@@ -157,14 +157,14 @@ public class HangmanSession {
     }
 
     private void displayWinMessage() {
-        display.show(WIN);
+        display.showInfo(WIN);
     }
 
     private void displayLoseMessage() {
-        display.show(ATTEMPTS_ARE_OVER);
+        display.showError(ATTEMPTS_ARE_OVER);
         displayWrongLetters();
         String revealedWord = hiddenWord.reveal();
-        display.show("Загаданное слово: " + revealedWord);
+        display.showInfo("Загаданное слово: " + revealedWord);
     }
 
     private boolean isLose(Result result) {

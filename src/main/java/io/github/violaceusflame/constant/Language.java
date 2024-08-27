@@ -1,4 +1,4 @@
-package io.github.violaceusflame;
+package io.github.violaceusflame.constant;
 
 import io.github.violaceusflame.validator.AbstractLetterValidator;
 import io.github.violaceusflame.validator.EngLetterValidator;

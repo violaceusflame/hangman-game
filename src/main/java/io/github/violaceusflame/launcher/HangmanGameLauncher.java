@@ -1,6 +1,5 @@
 package io.github.violaceusflame.launcher;
 
-import io.github.violaceusflame.dialog.RusLetterDialog;
 import io.github.violaceusflame.display.Display;
 import io.github.violaceusflame.mapper.MessageMapper;
 import io.github.violaceusflame.repository.WordRepository;
@@ -8,6 +7,7 @@ import io.github.violaceusflame.session.HangmanSession;
 import io.github.violaceusflame.dialog.Dialog;
 import io.github.violaceusflame.session.HangmanSession.Difficult;
 import io.github.violaceusflame.session.HiddenWord;
+import io.github.violaceusflame.util.DialogPair;
 
 import java.util.Optional;
 
@@ -21,21 +21,23 @@ public class HangmanGameLauncher {
     private static final String INVALID_COMMAND_MESSAGE = "Неизвестная команда";
 
     private final WordRepository wordRepository;
+    private final DialogPair dialogPair;
     private final Dialog dialog;
     private final Display display;
     private final MessageMapper messageMapper;
     private boolean running;
 
-    public HangmanGameLauncher(WordRepository wordRepository, Dialog dialog, Display display, MessageMapper messageMapper) {
+    public HangmanGameLauncher(WordRepository wordRepository, DialogPair dialogPair, Display display, MessageMapper messageMapper) {
         this.wordRepository = wordRepository;
-        this.dialog = dialog;
+        this.dialogPair = dialogPair;
+        this.dialog = dialogPair.getLauncherDialog();
         this.display = display;
         this.messageMapper = messageMapper;
     }
 
     public void start() {
         running = true;
-        display.show(WELCOME_MESSAGE);
+        display.showInfo(WELCOME_MESSAGE);
 
         while (running) {
             displayStartMessage();
@@ -45,7 +47,7 @@ public class HangmanGameLauncher {
     }
 
     private void displayStartMessage() {
-        display.show(String.format("""
+        display.showInfo(String.format("""
                         Выберите пункт меню:
                         [%s] Новая игра
                         [%s] Выход""",
@@ -61,7 +63,7 @@ public class HangmanGameLauncher {
                 exit();
                 break;
             default:
-                display.show(INVALID_COMMAND_MESSAGE);
+                display.showError(INVALID_COMMAND_MESSAGE);
                 break;
         }
     }
@@ -89,8 +91,8 @@ public class HangmanGameLauncher {
     }
 
     private void handleWordRepositoryException(String exceptionMessage) {
-        display.show(exceptionMessage);
-        display.show("Продолжать игру невозможно.");
+        display.showError(exceptionMessage);
+        display.showError("Продолжать игру невозможно.");
         exit();
     }
 
@@ -105,18 +107,18 @@ public class HangmanGameLauncher {
                 case CLASSIC_DIFFICULT_COMMAND:
                     return Difficult.CLASSIC;
                 default:
-                    display.show(INVALID_COMMAND_MESSAGE);
+                    display.showError(INVALID_COMMAND_MESSAGE);
             }
         }
     }
 
     private HangmanSession createHangmanSession(HiddenWord word, Difficult difficult) {
-        Dialog sessionDialog = new RusLetterDialog(display, "Ввод: ");
+        Dialog sessionDialog = dialogPair.getSessionDialog();
         return new HangmanSession(difficult, word, sessionDialog, display);
     }
 
     private void displayDifficultLevels() {
-        display.show(String.format("""
+        display.showInfo(String.format("""
                         Выберите уровень сложности:
                         [%s] Лёгкий (попыток: %d)
                         [%s] Классический (попыток: %d)""",
@@ -125,7 +127,7 @@ public class HangmanGameLauncher {
     }
 
     private void exit() {
-        display.show(EXIT_MESSAGE);
+        display.showInfo(EXIT_MESSAGE);
         running = false;
     }
 }

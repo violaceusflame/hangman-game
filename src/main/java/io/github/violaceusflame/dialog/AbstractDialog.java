@@ -23,14 +23,14 @@ public abstract class AbstractDialog implements Dialog {
     public String getInput() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            display.show(title);
+            display.showInfo(title);
             String playerInput = readInput(scanner);
             try {
                 validator.validate(playerInput);
                 return playerInput;
             } catch (RuntimeException e) {
                 String message = messageMapper.apply(e);
-                display.show(message);
+                display.showError(message);
             }
         }
     }
