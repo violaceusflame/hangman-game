@@ -1,7 +1,6 @@
 package io.github.violaceusflame.dialog;
 
 import io.github.violaceusflame.display.Display;
-import io.github.violaceusflame.exception.ValidatorException;
 import io.github.violaceusflame.mapper.MessageMapper;
 import io.github.violaceusflame.validator.Validator;
 
@@ -11,9 +10,9 @@ public abstract class AbstractDialog implements Dialog {
     private final Display display;
     private final String title;
     private final Validator<String> validator;
-    private final MessageMapper<ValidatorException> messageMapper;
+    private final MessageMapper messageMapper;
 
-    public AbstractDialog(Display display, String title, Validator<String> validator, MessageMapper<ValidatorException> messageMapper) {
+    public AbstractDialog(Display display, String title, Validator<String> validator, MessageMapper messageMapper) {
         this.display = display;
         this.title = title;
         this.validator = validator;
@@ -29,7 +28,7 @@ public abstract class AbstractDialog implements Dialog {
             try {
                 validator.validate(playerInput);
                 return playerInput;
-            } catch (ValidatorException e) {
+            } catch (RuntimeException e) {
                 String message = messageMapper.apply(e);
                 display.show(message);
             }

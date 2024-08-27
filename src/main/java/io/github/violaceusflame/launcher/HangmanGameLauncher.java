@@ -1,6 +1,5 @@
 package io.github.violaceusflame.launcher;
 
-import io.github.violaceusflame.dialog.EngLetterDialog;
 import io.github.violaceusflame.dialog.RusLetterDialog;
 import io.github.violaceusflame.display.Display;
 import io.github.violaceusflame.mapper.MessageMapper;
@@ -24,19 +23,10 @@ public class HangmanGameLauncher {
     private final WordRepository wordRepository;
     private final Dialog dialog;
     private final Display display;
-    private final MessageMapper<RuntimeException> messageMapper;
+    private final MessageMapper messageMapper;
     private boolean running;
 
-    // TODO: Сделать обработку исключений у объектов, внедряемых через DI.
-    // TODO: WordRepository внедряется через DI (Dependency Injection).
-    //  Надо подумать над тем, как обрабатывать исключения такого объекта. Как вариант, можно включить метод
-    //  для обработки исключений в интерфейс и в случае возникновения вызывать его.
-    //  Нечто похожее есть в Spring: там можно аннотировать методы @ExceptionHandler(...).
-    //  Или можно написать отдельный объект-обработчик в дополнение к конкретной реализации WordRepository
-    //  и там уже производить маппинг в конкретное текстовое представление, которое будет отображаться на экране.
-    // TODO: А вообще нужно почитать про DI внимательнее.
-    // TODO: Можно написать маппер, аналогичный тому, который Алексей использовал при написании своего варианта диалога.
-    public HangmanGameLauncher(WordRepository wordRepository, Dialog dialog, Display display, MessageMapper<RuntimeException> messageMapper) {
+    public HangmanGameLauncher(WordRepository wordRepository, Dialog dialog, Display display, MessageMapper messageMapper) {
         this.wordRepository = wordRepository;
         this.dialog = dialog;
         this.display = display;
@@ -92,8 +82,6 @@ public class HangmanGameLauncher {
         try {
             return Optional.of(wordRepository.get());
         } catch (RuntimeException e) {
-//            String exceptionMessage = getExceptionMessage(e).orElse(HIDDEN_WORD_GET_ERROR);
-            // TODO: Проверить корректность перехвата исключений WordRepositoryValidator
             String exceptionMessage = messageMapper.apply(e);
             handleWordRepositoryException(exceptionMessage);
             return Optional.empty();

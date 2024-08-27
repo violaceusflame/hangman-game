@@ -1,39 +1,35 @@
 package io.github.violaceusflame.validator;
 
-import io.github.violaceusflame.exception.ValidatorException;
+import io.github.violaceusflame.exception.MoreCharactersInputException;
+import io.github.violaceusflame.exception.NotLetterException;
+import io.github.violaceusflame.exception.NotLetterInLanguageException;
 
 public abstract class AbstractLetterValidator implements Validator<String> {
-    private final Character.UnicodeBlock language;
+    private final Character.UnicodeBlock unicodeBlock;
 
-    public AbstractLetterValidator(Character.UnicodeBlock language) {
-        this.language = language;
+    public AbstractLetterValidator(Character.UnicodeBlock unicodeBlock) {
+        this.unicodeBlock = unicodeBlock;
     }
 
     @Override
     public void validate(String playerInput) {
         char typedLetter = playerInput.charAt(0);
         if (playerInput.length() != 1) {
-            throw new ValidatorException(Result.MORE_LETTERS);
+            throw new MoreCharactersInputException();
         }
         if (!isLetter(typedLetter)) {
-            throw new ValidatorException(Result.ALLOWED_ONLY_LETTERS);
+            throw new NotLetterException();
         }
         if (!isLetterInLanguage(typedLetter)) {
-            throw new ValidatorException(Result.LETTER_NOT_IN_LANGUAGE);
+            throw new NotLetterInLanguageException();
         }
     }
 
     public boolean isLetterInLanguage(char letter) {
-        return isLetter(letter) && Character.UnicodeBlock.of(letter).equals(language);
+        return isLetter(letter) && Character.UnicodeBlock.of(letter).equals(unicodeBlock);
     }
 
     public boolean isLetter(char letter) {
         return Character.isLetter(letter);
-    }
-
-    public enum Result {
-        ALLOWED_ONLY_LETTERS,
-        LETTER_NOT_IN_LANGUAGE,
-        MORE_LETTERS
     }
 }
