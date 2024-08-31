@@ -1,7 +1,8 @@
 package io.github.violaceusflame;
 
 import io.github.violaceusflame.dialog.EngLetterDialog;
-import io.github.violaceusflame.dialog.LauncherDialog;
+import io.github.violaceusflame.dialog.MinMaxDialog;
+import io.github.violaceusflame.dialog.RusLauncherMinMaxDialog;
 import io.github.violaceusflame.display.Display;
 import io.github.violaceusflame.display.InfoDisplay;
 import io.github.violaceusflame.launcher.HangmanGameLauncher;
@@ -16,10 +17,10 @@ public class MainEngWordsConfig {
     public static void main(String[] args) {
         WordRepository wordRepository = new FileWordRepository("words_en.txt", Language.ENGLISH);
         Display display = new InfoDisplay();
-        LauncherDialog launcherDialog = new LauncherDialog(display, "Ввод: ");
+        MinMaxDialog minMaxDialog = new RusLauncherMinMaxDialog(display, "Ввод: ", 1, 2);
         EngLetterDialog engLetterDialog = new EngLetterDialog(display, "Ввод: ");
         MessageMapper messageMapper = new EngLetterValidatorMessageMapper();
-        HangmanGameLauncher hangmanGameLauncher = new HangmanGameLauncher(wordRepository, DialogPair.of(launcherDialog, engLetterDialog), display, messageMapper);
+        HangmanGameLauncher hangmanGameLauncher = new HangmanGameLauncher(wordRepository, DialogPair.of(minMaxDialog, engLetterDialog), display, messageMapper);
         hangmanGameLauncher.start();
     }
 }

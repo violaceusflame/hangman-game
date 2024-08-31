@@ -1,6 +1,7 @@
 package io.github.violaceusflame;
 
-import io.github.violaceusflame.dialog.LauncherDialog;
+import io.github.violaceusflame.dialog.MinMaxDialog;
+import io.github.violaceusflame.dialog.RusLauncherMinMaxDialog;
 import io.github.violaceusflame.dialog.RusLetterDialog;
 import io.github.violaceusflame.display.Display;
 import io.github.violaceusflame.display.InfoDisplay;
@@ -16,10 +17,10 @@ public class Main {
     public static void main(String[] args) {
         WordRepository wordRepository = new FileWordRepository("words_ru.txt", Language.RUSSIAN);
         Display display = new InfoDisplay();
-        LauncherDialog launcherDialog = new LauncherDialog(display, "Ввод: ");
+        MinMaxDialog minMaxDialog = new RusLauncherMinMaxDialog(display, "Ввод: ", 1, 2);
         RusLetterDialog rusLetterDialog = new RusLetterDialog(display, "Ввод: ");
         MessageMapper messageMapper = new RusFileWordRepositoryMessageMapper();
-        HangmanGameLauncher hangmanGameLauncher = new HangmanGameLauncher(wordRepository, DialogPair.of(launcherDialog, rusLetterDialog), display, messageMapper);
+        HangmanGameLauncher hangmanGameLauncher = new HangmanGameLauncher(wordRepository, DialogPair.of(minMaxDialog, rusLetterDialog), display, messageMapper);
         hangmanGameLauncher.start();
     }
 }
