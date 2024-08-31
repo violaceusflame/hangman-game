@@ -1,11 +1,12 @@
 package io.github.violaceusflame.exception;
 
 public class NoSuchLetterException extends RuntimeException {
-    private static final String NO_SUCH_LETTER_ERROR = "The letter %s is not in the hidden word";
+    private static final String MESSAGE = "The letter %s is not in the hidden word";
+
     private final String wrongLetter;
 
     public NoSuchLetterException(String wrongLetter) {
-        super(String.format(NO_SUCH_LETTER_ERROR, wrongLetter));
+        super(String.format(MESSAGE, wrongLetter));
         this.wrongLetter = wrongLetter;
     }
 

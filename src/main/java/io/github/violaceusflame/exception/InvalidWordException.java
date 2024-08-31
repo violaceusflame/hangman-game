@@ -1,12 +1,12 @@
 package io.github.violaceusflame.exception;
 
 public class InvalidWordException extends RuntimeException {
-    private static final String INVALID_WORD_MESSAGE = "'%s' is not a word because it contains invalid characters or characters from a different language";
+    private static final String MESSAGE = "'%s' is not a word because it contains invalid characters or characters from a different language";
 
     private final String invalidWord;
 
     public InvalidWordException(String invalidWord) {
-        super(String.format(INVALID_WORD_MESSAGE, invalidWord));
+        super(String.format(MESSAGE, invalidWord));
         this.invalidWord = invalidWord;
     }
 
