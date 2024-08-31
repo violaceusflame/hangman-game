@@ -6,7 +6,7 @@ import io.github.violaceusflame.dialog.RusLauncherMinMaxDialog;
 import io.github.violaceusflame.display.Display;
 import io.github.violaceusflame.display.InfoDisplay;
 import io.github.violaceusflame.launcher.HangmanGameLauncher;
-import io.github.violaceusflame.mapper.EngLetterValidatorMessageMapper;
+import io.github.violaceusflame.mapper.EngLetterMessageMapper;
 import io.github.violaceusflame.mapper.MessageMapper;
 import io.github.violaceusflame.repository.FileWordRepository;
 import io.github.violaceusflame.repository.WordRepository;
@@ -19,7 +19,7 @@ public class MainEngWordsConfig {
         Display display = new InfoDisplay();
         MinMaxDialog minMaxDialog = new RusLauncherMinMaxDialog(display, "Ввод: ", 1, 2);
         EngLetterDialog engLetterDialog = new EngLetterDialog(display, "Ввод: ");
-        MessageMapper messageMapper = new EngLetterValidatorMessageMapper();
+        MessageMapper messageMapper = new EngLetterMessageMapper();
         HangmanGameLauncher hangmanGameLauncher = new HangmanGameLauncher(wordRepository, DialogPair.of(minMaxDialog, engLetterDialog), display, messageMapper);
         hangmanGameLauncher.start();
     }

@@ -3,7 +3,7 @@ package io.github.violaceusflame.mapper;
 import io.github.violaceusflame.exception.EmptyWordListException;
 import io.github.violaceusflame.exception.InvalidWordException;
 
-public class RusWordRepositoryValidatorMessageMapper implements MessageMapper {
+public class RusWordRepositoryMessageMapper implements MessageMapper {
     private static final String EMPTY_WORD_LIST_MESSAGE = "Список слов пуст или не содержит строк со словами";
     private static final String INVALID_WORD_MESSAGE = "Ошибка: строка '%s' не является словом, так как содержит некорректные символы";
 
