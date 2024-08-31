@@ -1,5 +1,7 @@
 package io.github.violaceusflame;
 
+import io.github.violaceusflame.dialogs.common.printer.Printer;
+import io.github.violaceusflame.dialogs.common.printer.PrinterImpl;
 import io.github.violaceusflame.dialogs.minmaxintdialog.MinMaxDialog;
 import io.github.violaceusflame.dialogs.minmaxintdialog.ru.RusLauncherMinMaxDialog;
 import io.github.violaceusflame.dialogs.letterdialog.ru.RusLetterDialog;
@@ -18,8 +20,9 @@ public class MainColorizedTextConfig {
     public static void main(String[] args) {
         WordRepository wordRepository = new FileWordRepository("words_ru.txt", Language.RUSSIAN);
         Display display = new ColorizedInfoDisplay(AnsiTextColor.CYAN);
-        MinMaxDialog minMaxDialog = new RusLauncherMinMaxDialog(display, "Ввод: ", 1, 2);
-        RusLetterDialog rusLetterDialog = new RusLetterDialog(display, "Ввод: ");
+        Printer printer = new PrinterImpl(display);
+        MinMaxDialog minMaxDialog = new RusLauncherMinMaxDialog(printer, "Ввод: ", 1, 2);
+        RusLetterDialog rusLetterDialog = new RusLetterDialog(printer, "Ввод: ");
         MessageMapper messageMapper = new RusFileWordRepositoryMessageMapper();
         HangmanGameLauncher hangmanGameLauncher = new HangmanGameLauncher(wordRepository, DialogPair.of(minMaxDialog, rusLetterDialog), display, messageMapper);
         hangmanGameLauncher.start();

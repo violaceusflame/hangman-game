@@ -12,14 +12,14 @@ public class ColorizedInfoDisplay extends InfoDisplay implements Display {
     }
 
     @Override
-    public void showInfo(String info) {
-        String colorizedText = getColorizedText(info, textColor);
+    public void showInfo(String message) {
+        String colorizedText = getColorizedText(message, textColor);
         super.showInfo(colorizedText);
     }
 
     @Override
-    public void showError(String errorInfo) {
-        String colorizedText = getColorizedText(errorInfo, AnsiTextColor.RED);
+    public void showError(String message) {
+        String colorizedText = getColorizedText(message, AnsiTextColor.RED);
         super.showError(colorizedText);
     }
 
