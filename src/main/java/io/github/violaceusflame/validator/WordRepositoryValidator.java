@@ -1,5 +1,6 @@
 package io.github.violaceusflame.validator;
 
+import io.github.violaceusflame.dialogs.common.AbstractLetterValidator;
 import io.github.violaceusflame.exception.EmptyWordListException;
 import io.github.violaceusflame.exception.InvalidWordException;
 

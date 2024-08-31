@@ -1,9 +1,10 @@
-package io.github.violaceusflame.validator;
+package io.github.violaceusflame.dialogs.minmaxintdialog;
 
-import io.github.violaceusflame.exception.MoreCharactersInputException;
-import io.github.violaceusflame.exception.NotDigitException;
-import io.github.violaceusflame.exception.NumberGreaterThanMaxException;
-import io.github.violaceusflame.exception.NumberLessThanMinException;
+import io.github.violaceusflame.dialogs.common.MoreCharactersInputException;
+import io.github.violaceusflame.dialogs.minmaxintdialog.exception.NotDigitException;
+import io.github.violaceusflame.dialogs.minmaxintdialog.exception.NumberGreaterThanMaxException;
+import io.github.violaceusflame.dialogs.minmaxintdialog.exception.NumberLessThanMinException;
+import io.github.violaceusflame.validator.Validator;
 
 public class MinMaxValidator implements Validator<String> {
     private final int min;

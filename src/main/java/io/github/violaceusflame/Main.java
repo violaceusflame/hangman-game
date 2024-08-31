@@ -1,8 +1,8 @@
 package io.github.violaceusflame;
 
-import io.github.violaceusflame.dialog.MinMaxDialog;
-import io.github.violaceusflame.dialog.RusLauncherMinMaxDialog;
-import io.github.violaceusflame.dialog.RusLetterDialog;
+import io.github.violaceusflame.dialogs.minmaxintdialog.MinMaxDialog;
+import io.github.violaceusflame.dialogs.minmaxintdialog.ru.RusLauncherMinMaxDialog;
+import io.github.violaceusflame.dialogs.letterdialog.ru.RusLetterDialog;
 import io.github.violaceusflame.display.Display;
 import io.github.violaceusflame.display.InfoDisplay;
 import io.github.violaceusflame.launcher.HangmanGameLauncher;

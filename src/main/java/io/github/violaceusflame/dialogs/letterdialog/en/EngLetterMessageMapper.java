@@ -1,8 +1,9 @@
-package io.github.violaceusflame.mapper;
+package io.github.violaceusflame.dialogs.letterdialog.en;
 
-import io.github.violaceusflame.exception.MoreCharactersInputException;
-import io.github.violaceusflame.exception.NotLetterException;
-import io.github.violaceusflame.exception.NotLetterInLanguageException;
+import io.github.violaceusflame.dialogs.common.MoreCharactersInputException;
+import io.github.violaceusflame.dialogs.letterdialog.exception.NotLetterException;
+import io.github.violaceusflame.dialogs.letterdialog.exception.NotLetterInLanguageException;
+import io.github.violaceusflame.mapper.MessageMapper;
 
 public class EngLetterMessageMapper implements MessageMapper {
     private static final String ALLOWED_ONLY_LETTERS_MESSAGE = "Вводить можно только буквы!";

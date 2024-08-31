@@ -1,4 +1,4 @@
-package io.github.violaceusflame.exception;
+package io.github.violaceusflame.dialogs.minmaxintdialog.exception;
 
 public class NumberValidationException extends RuntimeException {
     private final int invalidNumber;

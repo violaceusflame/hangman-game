@@ -1,4 +1,6 @@
-package io.github.violaceusflame.validator;
+package io.github.violaceusflame.dialogs.letterdialog.en;
+
+import io.github.violaceusflame.dialogs.common.AbstractLetterValidator;
 
 public class EngLetterValidator extends AbstractLetterValidator {
     public EngLetterValidator() {

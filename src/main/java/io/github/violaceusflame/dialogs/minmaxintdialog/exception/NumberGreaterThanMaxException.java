@@ -1,4 +1,4 @@
-package io.github.violaceusflame.exception;
+package io.github.violaceusflame.dialogs.minmaxintdialog.exception;
 
 public class NumberGreaterThanMaxException extends NumberValidationException {
     private static final String MESSAGE = "The number '%d' is greater than the maximum number.";

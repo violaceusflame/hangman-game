@@ -1,8 +1,8 @@
-package io.github.violaceusflame.validator;
+package io.github.violaceusflame.dialogs.common;
 
-import io.github.violaceusflame.exception.MoreCharactersInputException;
-import io.github.violaceusflame.exception.NotLetterException;
-import io.github.violaceusflame.exception.NotLetterInLanguageException;
+import io.github.violaceusflame.dialogs.letterdialog.exception.NotLetterException;
+import io.github.violaceusflame.dialogs.letterdialog.exception.NotLetterInLanguageException;
+import io.github.violaceusflame.validator.Validator;
 
 public abstract class AbstractLetterValidator implements Validator<String> {
     private final Character.UnicodeBlock unicodeBlock;

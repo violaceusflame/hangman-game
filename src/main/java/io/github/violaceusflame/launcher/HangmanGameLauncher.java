@@ -4,7 +4,7 @@ import io.github.violaceusflame.display.Display;
 import io.github.violaceusflame.mapper.MessageMapper;
 import io.github.violaceusflame.repository.WordRepository;
 import io.github.violaceusflame.session.HangmanSession;
-import io.github.violaceusflame.dialog.Dialog;
+import io.github.violaceusflame.dialogs.common.Dialog;
 import io.github.violaceusflame.session.HangmanSession.Difficult;
 import io.github.violaceusflame.session.HiddenWord;
 import io.github.violaceusflame.util.DialogPair;

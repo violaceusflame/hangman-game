@@ -1,7 +1,7 @@
-package io.github.violaceusflame.dialog;
+package io.github.violaceusflame.dialogs.minmaxintdialog.ru;
 
+import io.github.violaceusflame.dialogs.minmaxintdialog.MinMaxDialog;
 import io.github.violaceusflame.display.Display;
-import io.github.violaceusflame.mapper.RusLauncherMinMaxMessageMapper;
 
 public class RusLauncherMinMaxDialog extends MinMaxDialog {
     public RusLauncherMinMaxDialog(Display display, String title, int min, int max) {

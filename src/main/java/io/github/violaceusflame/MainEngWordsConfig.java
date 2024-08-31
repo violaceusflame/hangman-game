@@ -1,12 +1,12 @@
 package io.github.violaceusflame;
 
-import io.github.violaceusflame.dialog.EngLetterDialog;
-import io.github.violaceusflame.dialog.MinMaxDialog;
-import io.github.violaceusflame.dialog.RusLauncherMinMaxDialog;
+import io.github.violaceusflame.dialogs.letterdialog.en.EngLetterDialog;
+import io.github.violaceusflame.dialogs.minmaxintdialog.MinMaxDialog;
+import io.github.violaceusflame.dialogs.minmaxintdialog.ru.RusLauncherMinMaxDialog;
 import io.github.violaceusflame.display.Display;
 import io.github.violaceusflame.display.InfoDisplay;
 import io.github.violaceusflame.launcher.HangmanGameLauncher;
-import io.github.violaceusflame.mapper.EngLetterMessageMapper;
+import io.github.violaceusflame.dialogs.letterdialog.en.EngLetterMessageMapper;
 import io.github.violaceusflame.mapper.MessageMapper;
 import io.github.violaceusflame.repository.FileWordRepository;
 import io.github.violaceusflame.repository.WordRepository;

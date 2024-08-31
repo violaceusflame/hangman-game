@@ -1,9 +1,10 @@
-package io.github.violaceusflame.mapper;
+package io.github.violaceusflame.dialogs.minmaxintdialog.ru;
 
-import io.github.violaceusflame.exception.MoreCharactersInputException;
-import io.github.violaceusflame.exception.NotDigitException;
-import io.github.violaceusflame.exception.NumberGreaterThanMaxException;
-import io.github.violaceusflame.exception.NumberLessThanMinException;
+import io.github.violaceusflame.dialogs.common.MoreCharactersInputException;
+import io.github.violaceusflame.dialogs.minmaxintdialog.exception.NotDigitException;
+import io.github.violaceusflame.dialogs.minmaxintdialog.exception.NumberGreaterThanMaxException;
+import io.github.violaceusflame.dialogs.minmaxintdialog.exception.NumberLessThanMinException;
+import io.github.violaceusflame.mapper.MessageMapper;
 
 public class RusMinMaxMessageMapper implements MessageMapper {
     // TODO: Проверка на один символ повторяется во многих местах. Подумать над сокращением этого куска кода.

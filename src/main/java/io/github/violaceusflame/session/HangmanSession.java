@@ -4,7 +4,7 @@ import io.github.violaceusflame.display.Display;
 import io.github.violaceusflame.exception.NoSuchLetterException;
 import io.github.violaceusflame.picture.EasyHangmanPicture;
 import io.github.violaceusflame.picture.HangmanPicture;
-import io.github.violaceusflame.dialog.Dialog;
+import io.github.violaceusflame.dialogs.common.Dialog;
 
 import java.util.*;
 

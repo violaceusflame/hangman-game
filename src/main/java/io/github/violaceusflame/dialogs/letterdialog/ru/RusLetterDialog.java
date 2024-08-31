@@ -1,8 +1,7 @@
-package io.github.violaceusflame.dialog;
+package io.github.violaceusflame.dialogs.letterdialog.ru;
 
+import io.github.violaceusflame.dialogs.common.AbstractDialog;
 import io.github.violaceusflame.display.Display;
-import io.github.violaceusflame.mapper.RusLetterMessageMapper;
-import io.github.violaceusflame.validator.RusLetterValidator;
 
 public class RusLetterDialog extends AbstractDialog {
     public RusLetterDialog(Display display, String title) {

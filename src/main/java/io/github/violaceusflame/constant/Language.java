@@ -1,8 +1,8 @@
 package io.github.violaceusflame.constant;
 
-import io.github.violaceusflame.validator.AbstractLetterValidator;
-import io.github.violaceusflame.validator.EngLetterValidator;
-import io.github.violaceusflame.validator.RusLetterValidator;
+import io.github.violaceusflame.dialogs.common.AbstractLetterValidator;
+import io.github.violaceusflame.dialogs.letterdialog.en.EngLetterValidator;
+import io.github.violaceusflame.dialogs.letterdialog.ru.RusLetterValidator;
 
 public enum Language {
     RUSSIAN(new RusLetterValidator()),

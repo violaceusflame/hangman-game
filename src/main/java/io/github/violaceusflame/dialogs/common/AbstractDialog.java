@@ -1,4 +1,4 @@
-package io.github.violaceusflame.dialog;
+package io.github.violaceusflame.dialogs.common;
 
 import io.github.violaceusflame.display.Display;
 import io.github.violaceusflame.mapper.MessageMapper;

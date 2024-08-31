@@ -1,4 +1,4 @@
-package io.github.violaceusflame.exception;
+package io.github.violaceusflame.dialogs.letterdialog.exception;
 
 public class NotLetterException extends RuntimeException {
     private static final String NO_LETTER_MESSAGE = "This character is not letter";

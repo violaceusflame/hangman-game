@@ -1,6 +1,6 @@
 package io.github.violaceusflame.util;
 
-import io.github.violaceusflame.dialog.Dialog;
+import io.github.violaceusflame.dialogs.common.Dialog;
 
 public class DialogPair {
     private final Dialog launcherDialog;
