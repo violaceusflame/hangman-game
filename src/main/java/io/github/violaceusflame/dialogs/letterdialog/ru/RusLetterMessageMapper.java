@@ -1,25 +1,24 @@
 package io.github.violaceusflame.dialogs.letterdialog.ru;
 
-import io.github.violaceusflame.dialogs.common.MoreCharactersInputException;
-import io.github.violaceusflame.dialogs.letterdialog.exception.NotLetterException;
-import io.github.violaceusflame.dialogs.letterdialog.exception.NotLetterInLanguageException;
-import io.github.violaceusflame.mapper.MessageMapper;
+import io.github.violaceusflame.dialogs.letterdialog.AbstractLetterMessageMapper;
 
-public class RusLetterMessageMapper implements MessageMapper {
+public class RusLetterMessageMapper extends AbstractLetterMessageMapper {
     private static final String ALLOWED_ONLY_LETTERS_MESSAGE = "Вводить можно только буквы!";
     private static final String LETTER_NOT_CYRILLIC_MESSAGE = "Допустимы только буквы кириллицы!";
     private static final String MORE_LETTERS_MESSAGE = "Можно ввести только одну букву";
 
     @Override
-    public String apply(RuntimeException e) {
-        if (e instanceof NotLetterException) {
-            return ALLOWED_ONLY_LETTERS_MESSAGE;
-        } else if (e instanceof NotLetterInLanguageException) {
-            return LETTER_NOT_CYRILLIC_MESSAGE;
-        } else if (e instanceof MoreCharactersInputException) {
-            return MORE_LETTERS_MESSAGE;
-        }
+    protected String messageAllowedOnlyLetters() {
+        return ALLOWED_ONLY_LETTERS_MESSAGE;
+    }
 
-        throw new IllegalArgumentException("Illegal exception: " + e);
+    @Override
+    protected String messageLetterNotInLanguage() {
+        return LETTER_NOT_CYRILLIC_MESSAGE;
+    }
+
+    @Override
+    protected String messageMoreLetters() {
+        return MORE_LETTERS_MESSAGE;
     }
 }
