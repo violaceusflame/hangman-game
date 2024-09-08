@@ -3,7 +3,7 @@ package io.github.violaceusflame.repository;
 import io.github.violaceusflame.constant.Language;
 import io.github.violaceusflame.exception.OpenWordsFileException;
 import io.github.violaceusflame.exception.ReadWordsFileException;
-import io.github.violaceusflame.session.HiddenWord;
+import io.github.violaceusflame.messagecenter.MessageCenter;
 import io.github.violaceusflame.validator.WordRepositoryValidator;
 
 import java.io.*;
@@ -11,12 +11,22 @@ import java.util.List;
 
 public class FileWordRepository implements WordRepository {
     private final WordRepositoryValidator wordRepositoryValidator;
-    private final String fileName;
+    private final String filename;
     private List<String> words;
 
-    public FileWordRepository(String fileName, Language language) {
-        this.fileName = "/" + fileName;
-        this.wordRepositoryValidator = new WordRepositoryValidator(language.getLetterValidator());
+    public FileWordRepository(String directory, String filenameTemplate, Language language) {
+        this.filename = String.format("/%s/%s", directory, filenameTemplate.formatted(language.name().toLowerCase()));
+        this.wordRepositoryValidator = new WordRepositoryValidator(language);
+    }
+
+    @Override
+    public String get() {
+        if (words == null) {
+            loadWords();
+        }
+
+        int randomIndex = getRandomIndex();
+        return words.get(randomIndex);
     }
 
     private void loadWords() {
@@ -33,22 +43,11 @@ public class FileWordRepository implements WordRepository {
     }
 
     private InputStream getWordsFileAsStream() {
-        InputStream resource = FileWordRepository.class.getResourceAsStream(fileName);
+        InputStream resource = FileWordRepository.class.getResourceAsStream(filename);
         if (resource == null) {
             throw new OpenWordsFileException();
         }
         return resource;
-    }
-
-    @Override
-    public HiddenWord get() {
-        if (words == null) {
-            loadWords();
-        }
-
-        int randomIndex = getRandomIndex();
-        String wordFromList = words.get(randomIndex);
-        return new HiddenWord(wordFromList);
     }
 
     private int getRandomIndex() {

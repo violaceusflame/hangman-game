@@ -1,8 +1,6 @@
 package io.github.violaceusflame.display;
 
-import io.github.violaceusflame.constant.AnsiTextColor;
-
-import static io.github.violaceusflame.constant.AnsiTextColor.RESET;
+import static io.github.violaceusflame.display.AnsiTextColor.RESET;
 
 public class ColorizedInfoDisplay extends InfoDisplay implements Display {
     private final AnsiTextColor textColor;
@@ -12,15 +10,9 @@ public class ColorizedInfoDisplay extends InfoDisplay implements Display {
     }
 
     @Override
-    public void showInfo(String message) {
-        String colorizedText = getColorizedText(message, textColor);
-        super.showInfo(colorizedText);
-    }
-
-    @Override
-    public void showError(String message) {
-        String colorizedText = getColorizedText(message, AnsiTextColor.RED);
-        super.showError(colorizedText);
+    public void show(String text) {
+        String colorizedText = getColorizedText(text, textColor);
+        super.show(colorizedText);
     }
 
     private String getColorizedText(String info, AnsiTextColor textColor) {
